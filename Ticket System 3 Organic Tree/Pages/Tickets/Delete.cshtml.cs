@@ -8,17 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using Ticket_System_3_Organic_Tree.Data;
 using Ticket_System_3_Organic_Tree.Models;
 
-namespace Ticket_System_3_Organic_Tree.Pages
+namespace Ticket_System_3_Organic_Tree.Pages.Tickets
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
-        private readonly Ticket_System_3_Organic_Tree.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(Ticket_System_3_Organic_Tree.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public Ticket Ticket { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -29,6 +30,7 @@ namespace Ticket_System_3_Organic_Tree.Pages
             }
 
             var ticket = await _context.Ticket.FirstOrDefaultAsync(m => m.Id == id);
+
             if (ticket == null)
             {
                 return NotFound();
@@ -38,6 +40,24 @@ namespace Ticket_System_3_Organic_Tree.Pages
                 Ticket = ticket;
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ticket = await _context.Ticket.FindAsync(id);
+            if (ticket != null)
+            {
+                Ticket = ticket;
+                _context.Ticket.Remove(Ticket);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Ticket_System_3_Organic_Tree.Data;
 using Ticket_System_3_Organic_Tree.Models;
 
-namespace Ticket_System_3_Organic_Tree.Pages
+namespace Ticket_System_3_Organic_Tree.Pages.Knowledge
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace Ticket_System_3_Organic_Tree.Pages
         }
 
         [BindProperty]
-        public Ticket Ticket { get; set; } = default!;
+        public KnownKnowledge KnownKnowledge { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace Ticket_System_3_Organic_Tree.Pages
                 return NotFound();
             }
 
-            var ticket =  await _context.Ticket.FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
+            var knownknowledge =  await _context.KnownKnowledge.FirstOrDefaultAsync(m => m.Id == id);
+            if (knownknowledge == null)
             {
                 return NotFound();
             }
-            Ticket = ticket;
+            KnownKnowledge = knownknowledge;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace Ticket_System_3_Organic_Tree.Pages
                 return Page();
             }
 
-            _context.Attach(Ticket).State = EntityState.Modified;
+            _context.Attach(KnownKnowledge).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace Ticket_System_3_Organic_Tree.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TicketExists(Ticket.Id))
+                if (!KnownKnowledgeExists(KnownKnowledge.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace Ticket_System_3_Organic_Tree.Pages
             return RedirectToPage("./Index");
         }
 
-        private bool TicketExists(int id)
+        private bool KnownKnowledgeExists(int id)
         {
-            return _context.Ticket.Any(e => e.Id == id);
+            return _context.KnownKnowledge.Any(e => e.Id == id);
         }
     }
 }

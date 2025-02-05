@@ -11,6 +11,6 @@ namespace Ticket_System_3_Organic_Tree.Data
         {
         }
         public DbSet<Ticket_System_3_Organic_Tree.Models.Ticket> Ticket { get; set; } = default!;
-        public DbSet<Ticket_System_3_Organic_Tree.Models.Knowledge> Knowledge { get; set; } = default!;
+        public DbSet<Ticket_System_3_Organic_Tree.Models.KnownKnowledge> KnownKnowledge { get; set; } = default!;
     }
 }

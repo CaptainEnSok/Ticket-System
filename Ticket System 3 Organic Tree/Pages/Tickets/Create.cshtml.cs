@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Ticket_System_3_Organic_Tree.Data;
 using Ticket_System_3_Organic_Tree.Models;
 
-namespace Ticket_System_3_Organic_Tree.Pages
+namespace Ticket_System_3_Organic_Tree.Pages.Tickets
 {
     public class CreateModel : PageModel
     {
-        private readonly Ticket_System_3_Organic_Tree.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public CreateModel(Ticket_System_3_Organic_Tree.Data.ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context)
         {
             _context = context;
         }
